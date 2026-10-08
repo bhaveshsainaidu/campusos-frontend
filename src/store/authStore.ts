@@ -29,12 +29,26 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isAuthenticated: !!localStorage.getItem('campusos_access_token'),
   isLoading: true,
 
-  setAuth: (response: AuthResponse) => {
+  setAuth: (response: AuthResponse, emailFallback?: string) => {
     localStorage.setItem('campusos_access_token', response.accessToken);
     localStorage.setItem('campusos_refresh_token', response.refreshToken);
-    localStorage.setItem('campusos_user', JSON.stringify(response.user));
+
+    const rawRole = (response.user?.role || response.role || 'STUDENT') as string;
+    const normalizedRole = rawRole.startsWith('ROLE_') ? rawRole : `ROLE_${rawRole}`;
+
+    const user: User = response.user
+      ? { ...response.user, role: normalizedRole as any }
+      : {
+          id: response.userId || 1,
+          email: emailFallback || 'admin@campusos.edu',
+          role: normalizedRole as any,
+          fullName: response.fullName || 'Campus Member',
+          active: true,
+        };
+
+    localStorage.setItem('campusos_user', JSON.stringify(user));
     set({
-      user: response.user,
+      user,
       token: response.accessToken,
       refreshToken: response.refreshToken,
       isAuthenticated: true,
@@ -51,7 +65,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ isLoading: true });
     try {
       const response = await authApi.login(credentials);
-      get().setAuth(response);
+      get().setAuth(response, credentials.email);
     } catch (error) {
       set({ isLoading: false });
       throw error;
