@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
               CampusOS
             </span>
             <span className="text-[10px] text-apple-gray-500 font-medium tracking-wider uppercase">
-              Academic Cloud
+              College Portal
             </span>
           </div>
         </Link>

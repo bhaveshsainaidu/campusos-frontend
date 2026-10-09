@@ -39,10 +39,10 @@ export const AdminDashboard: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-apple-gray-900 dark:text-white">
-            Administrative Console
+            Admin Dashboard
           </h1>
           <p className="text-sm text-apple-gray-500 dark:text-apple-gray-400 mt-1">
-            Real-time university operations, live attendance analytics, and academic metrics
+            Manage student enrollment, faculty, courses, and attendance statistics
           </p>
         </div>
 

@@ -28,7 +28,7 @@ describe('Dashboard Router', () => {
     });
   });
 
-  it('renders Administrative Console for ROLE_ADMIN', () => {
+  it('renders Admin Dashboard for ROLE_ADMIN', () => {
     useAuthStore.setState({
       user: {
         id: 1,
@@ -40,10 +40,10 @@ describe('Dashboard Router', () => {
     });
 
     renderDashboard();
-    expect(screen.getByText('Administrative Console')).toBeInTheDocument();
+    expect(screen.getByText('Admin Dashboard')).toBeInTheDocument();
   });
 
-  it('renders Faculty Command Center for ROLE_FACULTY', () => {
+  it('renders Faculty Dashboard for ROLE_FACULTY', () => {
     useAuthStore.setState({
       user: {
         id: 2,
@@ -55,7 +55,7 @@ describe('Dashboard Router', () => {
     });
 
     renderDashboard();
-    expect(screen.getByText('Faculty Command Center')).toBeInTheDocument();
+    expect(screen.getByText('Faculty Dashboard')).toBeInTheDocument();
   });
 
   it('renders Student Workspace for ROLE_STUDENT', () => {

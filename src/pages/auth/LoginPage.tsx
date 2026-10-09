@@ -90,7 +90,7 @@ export const LoginPage: React.FC = () => {
             Sign In to CampusOS
           </h1>
           <p className="text-sm text-apple-gray-500 dark:text-apple-gray-400">
-            Unified university portal for students, faculty & administration
+            College portal for students, faculty, and administration
           </p>
         </div>
 

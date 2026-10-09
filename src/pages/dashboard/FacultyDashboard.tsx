@@ -26,10 +26,10 @@ export const FacultyDashboard: React.FC = () => {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-apple-gray-900 dark:text-white">
-          Faculty Command Center
+          Faculty Dashboard
         </h1>
         <p className="text-sm text-apple-gray-500 dark:text-apple-gray-400 mt-1">
-          Manage your lecture sessions, record attendance, and track course evaluations
+          View today's lecture schedule, take attendance, and enter marks
         </p>
       </div>
 
