@@ -27,7 +27,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   token: localStorage.getItem('campusos_access_token'),
   refreshToken: localStorage.getItem('campusos_refresh_token'),
   isAuthenticated: !!localStorage.getItem('campusos_access_token'),
-  isLoading: true,
+  isLoading: !!localStorage.getItem('campusos_access_token'),
 
   setAuth: (response: AuthResponse, emailFallback?: string) => {
     localStorage.setItem('campusos_access_token', response.accessToken);

@@ -21,12 +21,20 @@ export const WebSocketManager: React.FC = () => {
       return;
     }
 
-    // Connect via SockJS fallback or WebSocket
-    const client = new Client({
-      webSocketFactory: () => new SockJS('/ws/campusos'),
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
+    try {
+      // Connect via SockJS fallback or WebSocket
+      const client = new Client({
+        webSocketFactory: () => {
+          try {
+            return new SockJS('/ws/campusos');
+          } catch (err) {
+            console.warn('Failed to initialize SockJS client', err);
+            return null as any;
+          }
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
       onConnect: () => {
         // Subscribe to global announcements
         client.subscribe('/topic/notices/all', (message) => {
@@ -84,13 +92,16 @@ export const WebSocketManager: React.FC = () => {
       },
     });
 
-    client.activate();
-    clientRef.current = client;
+      client.activate();
+      clientRef.current = client;
 
-    return () => {
-      client.deactivate();
-      clientRef.current = null;
-    };
+      return () => {
+        client.deactivate();
+        clientRef.current = null;
+      };
+    } catch (error) {
+      console.warn('Failed to start STOMP client:', error);
+    }
   }, [isAuthenticated, user, addToast, incrementNoticeCount, queryClient]);
 
   return null;
